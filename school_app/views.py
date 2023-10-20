@@ -88,7 +88,7 @@ def createstudent(request):
 #base or all records
 @api_view(['GET'])
 def getRecords(request):
-    try:
+    # try:
         institute = Institute.objects.all()
         teachers = TeacherProfile.objects.all()
         students = StudentProfile.objects.all()
@@ -97,8 +97,8 @@ def getRecords(request):
         student_serializer = StudentsSerializer(students)
         institute_serializer = InstituteSerializer(institute)
         return Response({'Institute_List':institute_serializer.data,'Teachers List':teacher_serializer.data,'Students List':student_serializer.data})
-    except Exception as e:
-        return Response(str(e))
+    # except Exception as e:
+    #     return Response(str(e))
 
 #To get teacher and associated students
 @api_view(['GET'])
@@ -106,8 +106,8 @@ def getteacher(request,id):
     try:
         if request.method == 'GET':
             teacherdata = TeacherProfile.objects.get(id = id)
-            students = teacherdata.teacher_name.all()
-            serializer = StudentProfileSerializer(students, many=True)
+            students = StudentProfile.objects.filter(teacher_id=id )                      #teacherdata.teacher_name.all()
+            serializer = StudentsSerializer(students, many=True)
             return Response({'teacher':teacherdata.name,'assigned-students':serializer.data},status=status.HTTP_200_OK)
     except Exception as e:
         return Response(str(e))

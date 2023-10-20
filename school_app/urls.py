@@ -10,8 +10,8 @@ urlpatterns = [
     path('teacher/',createteacher, name='createTeacher'),
     path('student/',createstudent, name='createStudent'),
     
-    path("teachers/<int:id>/", getteacher,name='get_teacher'),
-    path("students/<int:id>/", getstudent,name='get_student'),
+    path("teacher/<int:id>/", getteacher,name='get_teacher'),
+    path("student/<int:id>/", getstudent,name='get_student'),
     
     # path('gettoken/',TokenObtainPairView.as_view(),name='token_obtain_pair'),
     # path('refreshtoken/',TokenRefreshView.as_view(),name='token_refresh'),
